@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  php:
+    container_name: basic-mvc
+    image: php:8-apache
+    # network_mode: host
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - 83:80
+    expose:
+      - 80
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - my-network
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql-basic-mvc
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: 'basic_mvc'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: '123'
+      MYSQL_ROOT_PASSWORD: '123'
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    networks:
+      - my-network
+
+    
+volumes:
+  basic-mvc:
+
+networks:
+  my-network:
+    driver: bridge
