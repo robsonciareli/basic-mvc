@@ -8,3 +8,5 @@ This is a repository to study mvc architecture
 # Atualizar as dependencias com composer
 
 # Criar db para uso no projeto
+
+
