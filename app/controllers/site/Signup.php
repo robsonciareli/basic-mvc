@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\site;
 
 use app\models\User;
 use app\classes\Flash;
@@ -9,8 +9,9 @@ use app\models\activerecord\Insert;
 
 class Signup
 {
-    public string $view;
     public array $data = [];
+    public string $view;
+    public string $master = 'index.php';
 
     public function index()
     {

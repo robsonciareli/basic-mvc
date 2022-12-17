@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\site;
 
 use Exception;
 use app\models\User as UserModel;
@@ -8,8 +8,17 @@ use app\models\activerecord\FindBy;
 
 class User
 {
-    public string $view;
     public array $data = [];
+    public string $view;
+    public string $master = 'index.php';
+
+    public function index()
+    {
+        $this->data = [
+            'title' => 'Index User',
+        ];
+        $this->view = 'edit.php';
+    }
 
     public function show(array $args)
     {

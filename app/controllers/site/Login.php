@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\site;
 
 
 use app\models\User;
@@ -12,8 +12,9 @@ use app\interfaces\ControllerInterface;
 
 class Login implements ControllerInterface
 {
-    public string $view;
     public array $data = [];
+    public string $view;
+    public string $master = 'index.php';
 
     public function __construct()
     {
@@ -23,7 +24,6 @@ class Login implements ControllerInterface
     public function index(array $args)
     {
         $this->view = 'login.php';
-
         $this->data = [
             'title' => 'Login',
         ];

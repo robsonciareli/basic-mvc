@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\site;
 
 use app\models\User;
 use app\models\activerecord\FindAll;
@@ -9,6 +9,7 @@ class Home
 {
     public array $data = [];
     public string $view;
+    public string $master = 'index.php';
 
     public function index()
     {
