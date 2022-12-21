@@ -7,16 +7,22 @@ class MethodExtract
     public static function extract($controller)
     {
         $uri = Uri::uri();
-        $method = 'index';
-        $sliceIndexStartFrom = 2;
+        $folder = FolderExtract::extract($uri);
 
-        if(isset($uri[1]) and $uri[1] !== ''){
-            $method = strtolower($uri[1]);
-        }
+        $method = (!$folder) ?
+            Uri::uriExist($uri, 1):
+            Uri::uriExist($uri, 2);
 
+        $method = ($method !== null) ? 
+            mb_strtolower($method) : 
+            'index';
+        
         if(!method_exists($controller, $method)){
             $method = 'index';
-            $sliceIndexStartFrom = 1;
+            $sliceIndexStartFrom = (!$folder) ? 1 : 2;
+        }
+        else{
+            $sliceIndexStartFrom = (!$folder) ? 2 : 3;
         }
 
         return [
