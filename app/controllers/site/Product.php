@@ -13,7 +13,7 @@ class Product
         $this->data = [
             'title' => 'Product'
         ];
-        $this->view = 'edit.php';
+        $this->view = 'product/index.php';
     }
 
     public function edit(array $args)

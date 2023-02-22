@@ -22,7 +22,13 @@ class User
 
     public function show(array $args)
     {
-        $user = (new UserModel)->execute(new FindBy(field:'id', value:$args[0], fields:'id, firstName, lastName'));
+        $user = (new UserModel)->execute(
+            new FindBy(
+                field:'id', 
+                value:$args[0], 
+                fields:'id, firstName, lastName, email'
+            )
+        );
 
         if(!$user){
             throw new Exception("Usuário não encontrado!");

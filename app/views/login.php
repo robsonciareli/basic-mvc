@@ -1,12 +1,24 @@
 <h2>Login</h2>
-<form action="/login/store" method="post">
-    <input type="text" name="email" placeholder="Seu E-mail" value="rciareli@gmail.com">
-    <input type="password" name="password" placeholder="Sua Senha" value="123">
-    <button type="submit" >Logar</button>
-</form>
 
-<br>
+<div class="row mb-2">
 <?php 
-echo flash('login');
- ?>
+    echo flash('login');
+?>
+</div>
+
+<form action="/login/store" method="post">
+    <div class="row mb-2">
+        <label class="form-label font-weight-bold">E-mail:</label>
+        <input class="form-control" type="text" name="email" placeholder="Seu E-mail" value="rciareli@gmail.com">
+    </div>
+    <div class="row mb-2">
+        <label class="form-label font-weight-bold">Password:</label>
+        <input class="form-control" type="password" name="password" placeholder="Sua Senha" value="123">
+    </div>
+
+    <div class="row ">
+        <button class="btn btn-primary" type="submit" >Logar</button>
+    </div>
+    
+</form>
 

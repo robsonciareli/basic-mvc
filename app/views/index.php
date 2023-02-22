@@ -10,13 +10,15 @@
     <title><?php echo $title; ?></title>
 </head>
 <body>
-
     <div class="container">
         <section id="header">
             <ul id="nav">
                 <li><a href="/">Início</a></li>
                 <li><a href="/signup">Signup</a></li>
-                <li><a href="/login">Login</a></li>
+                <?php 
+                    if(is_null(is_logged())){ ?>
+                        <li><a href="/login">Login</a></li>
+                <?php }?>
             </ul>
 
             <div>
