@@ -16,8 +16,9 @@
         <input class="form-control" type="password" name="password" placeholder="Sua Senha" value="123">
     </div>
 
-    <div class="row ">
+    <div class="row d-flex align-self-baseline">
         <button class="btn btn-primary" type="submit" >Logar</button>
+        <a class="align-self-end ml-2" href="/signup">Não tenho registro</a>
     </div>
     
 </form>

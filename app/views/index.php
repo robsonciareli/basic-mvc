@@ -11,21 +11,22 @@
 </head>
 <body>
     <div class="container">
-        <section id="header">
-            <ul id="nav">
-                <li><a href="/">Início</a></li>
-                <li><a href="/signup">Signup</a></li>
+        <!-- <nav class="navbar navbar-light bg-light row mb-1 align-items-end"> -->
+        <nav class="navbar mb-3 navbar-light bg-light">
+            
+            <div class="d-flex justify-content-between col-5">
+                <a href="/" class="text-decoration-none text-dark">Início</a>
                 <?php 
                     if(is_null(is_logged())){ ?>
-                        <li><a href="/login">Login</a></li>
+                        <a href="/signup"  class="text-decoration-none text-dark align-baseline">Signup</a>
+                        <a href="/login" class="text-decoration-none text-dark"> Login</a>
                 <?php }?>
-            </ul>
-
-            <div>
+            </div>
+            <div class="d-flex justify-content-end col-7">
                  <?php echo welcome('user'); ?>
             </div>
-        </section>
-        
+        </nav>
+
         <?php require VIEW_PATH . $this->controller->view; ?>
     </div>
 </body>
