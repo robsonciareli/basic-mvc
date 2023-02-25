@@ -10,19 +10,17 @@
     <title><?php echo $title; ?></title>
 </head>
 <body>
-<h1>Master Admin</h1>
     <div class="container">
-        <section id="header">
-            <ul id="nav">
-                <li><a href="/">Início</a></li>
-                <li><a href="/signup">Signup</a></li>
-                <li><a href="/login">Login</a></li>
-            </ul>
-
-            <div>
+        <nav class="navbar mb-3 navbar-light bg-light">
+            <div class="d-flex justify-content-between col-5">
+                    <a  class="text-decoration-none text-dark" href="/admin/home">Início</a>
+                    <a  class="text-decoration-none text-dark" href="/admin/user">Usuário</a>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-end col-7">
                  <?php echo welcome('user'); ?>
             </div>
-        </section>
+        </nav>
         
         <?php require VIEW_PATH . $this->controller->view; ?>
     </div>

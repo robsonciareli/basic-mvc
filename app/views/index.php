@@ -11,9 +11,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- <nav class="navbar navbar-light bg-light row mb-1 align-items-end"> -->
         <nav class="navbar mb-3 navbar-light bg-light">
-            
             <div class="d-flex justify-content-between col-5">
                 <a href="/" class="text-decoration-none text-dark">Início</a>
                 <?php 

@@ -53,7 +53,7 @@ class Login implements ControllerInterface
 
         $_SESSION['user'] = $userFound;
 
-        return redirect('/');
+        return redirect('/admin/');
     }
 
     public function destroy(array $args)
