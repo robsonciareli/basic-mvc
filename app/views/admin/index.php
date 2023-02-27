@@ -12,9 +12,9 @@
 <body>
     <div class="container">
         <nav class="navbar mb-3 navbar-light bg-light">
-            <div class="d-flex justify-content-between col-5">
+            <div class="d-flex col-5">
                     <a  class="text-decoration-none text-dark" href="/admin/home">Início</a>
-                    <a  class="text-decoration-none text-dark" href="/admin/user">Usuário</a>
+                    <a  class="text-decoration-none text-dark ml-4" href="/admin/user">Usuário</a>
                 </ul>
             </div>
             <div class="d-flex justify-content-end col-7">
