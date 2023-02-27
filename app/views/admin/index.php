@@ -22,7 +22,9 @@
             </div>
         </nav>
         
-        <?php require VIEW_PATH . $this->controller->view; ?>
+        <div class="w-100">
+            <?php require VIEW_PATH . $this->controller->view; ?>
+        </div>
     </div>
 </body>
 </html>
