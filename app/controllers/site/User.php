@@ -5,52 +5,17 @@ namespace app\controllers\site;
 use app\models\activerecord\Delete;
 use Exception;
 use app\models\User as UserModel;
+use app\controllers\admin\User as UserAdmin;
 use app\models\activerecord\FindBy;
 
-class User
+class User extends UserAdmin
 {
     public array $data = [];
-    public string $view;
     public string $master = 'index.php';
 
-    public function index()
+    public function index(array $args)
     {
-        $this->data = [
-            'title' => 'Index User',
-        ];
-        $this->view = 'edit.php';
-    }
-
-    public function show(array $args)
-    {
-        $user = (new UserModel)->execute(
-            new FindBy(
-                field:'id', 
-                value:$args[0], 
-                fields:'id, firstName, lastName, email'
-            )
-        );
-
-        if(!$user){
-            throw new Exception("Usuário não encontrado!");
-        }
-        
-        $this->view = 'user.php';
-        $this->data = [
-            'title' => 'User data',
-            'user' => $user
-        ];
-    }
-
-    public function delete(array $args)
-    {
-        (new UserModel)->execute(
-            new Delete(
-                field:'id', 
-                value: $args[0]
-            )
-        );
-        
-        return redirect('/');
+        $this->view = 'index.php';
+        parent::index($args);
     }
 }

@@ -9,7 +9,7 @@ use app\models\Products as ProductModel;
 
 class Product implements ControllerInterface
 {
-    public string $view;
+    public string $view = '';
     public array $data = [];
     public string $master = 'admin/index.php';
 
@@ -18,9 +18,8 @@ class Product implements ControllerInterface
         $products = (new ProductModel)->execute(
             new FindAll()
         );
-        // var_dump($args);
-        // die();
-        $this->view = 'admin/product/index.php';
+        
+        $this->view = $this->view ?: 'admin/product/index.php';
         $this->data = [
             'title'     => 'Lista de produtos',
             'products'  => $products

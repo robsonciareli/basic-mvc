@@ -16,7 +16,7 @@ use app\interfaces\ControllerInterface;
 class User implements ControllerInterface
 {
     public array $data = [];
-    public string $view;
+    public string $view = '';
     public string $master = 'admin/index.php';
 
     public function __construct()
@@ -34,7 +34,7 @@ class User implements ControllerInterface
             'title' => 'Lista de usuários',
             'users' => $users,
         ];
-        $this->view = 'admin/user/index.php';
+        $this->view = $this->view ?: 'admin/user/index.php';
     }
 
     public function show(array $args)
