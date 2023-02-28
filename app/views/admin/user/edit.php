@@ -1,6 +1,3 @@
-<h2 class="mb-3">
-    <?php echo $title; ?>
-</h2>
 <div style="padding: 0 1em;">
     <form method="POST" action="/admin/user/update">
         <input type="hidden" name="id" id="id" value="<?php echo $user->id; ?>">

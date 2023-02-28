@@ -26,6 +26,10 @@
             </div>
         </nav>
 
+        <h3>
+            <?php echo $title;?>
+        </h3>
+
         <?php require VIEW_PATH . $this->controller->view; ?>
     </div>
 </body>

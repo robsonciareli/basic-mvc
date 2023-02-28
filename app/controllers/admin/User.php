@@ -31,7 +31,7 @@ class User implements ControllerInterface
         );
         
         $this->data = [
-            'title' => 'Index User',
+            'title' => 'Lista de usuários',
             'users' => $users,
         ];
         $this->view = 'admin/user/index.php';

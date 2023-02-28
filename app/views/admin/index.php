@@ -15,6 +15,7 @@
             <div class="d-flex col-5">
                     <a  class="text-decoration-none text-dark" href="/admin/home">Início</a>
                     <a  class="text-decoration-none text-dark ml-4" href="/admin/user">Usuário</a>
+                    <a  class="text-decoration-none text-dark ml-4" href="/admin/product">Produtos</a>
                 </ul>
             </div>
             <div class="d-flex justify-content-end col-7">
@@ -22,6 +23,10 @@
             </div>
         </nav>
         
+        <h3>
+            <?php echo $title;?>
+        </h3>
+
         <div class="w-100">
             <?php require VIEW_PATH . $this->controller->view; ?>
         </div>

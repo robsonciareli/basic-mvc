@@ -1,7 +1,3 @@
-<h2 class="mb-3">
-    <?php echo $title; ?>
-</h2>
-
 <?php
     echo flash('created');
 ?>
