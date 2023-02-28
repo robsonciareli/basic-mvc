@@ -1,4 +1,7 @@
-<?php echo flash('excluido');?>
+<?php 
+    echo flash('excluido');
+    echo flash('created');
+?>
 
 <div class="border border-secondary rounded">
     <div class="bg-secondary">

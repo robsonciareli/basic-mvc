@@ -1,3 +1,6 @@
+<?php
+    echo flash('erro');
+?>
 <div style="padding: 0 1em;">
     <form method="POST" action="/admin/product/update">
         <input type="hidden" name="id" id="id" value="<?php echo $product->id; ?>">

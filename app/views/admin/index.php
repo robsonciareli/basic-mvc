@@ -23,8 +23,11 @@
             </div>
         </nav>
         
-        <h3>
+        <h3 class="d-flex justify-content-between">
             <?php echo $title;?>
+            <?php if (!empty($add)) { ?>
+                <a href="<?php echo $add;?>" class="btn btn-primary btn-sm">Adicionar</a>
+            <?php }?>
         </h3>
 
         <div class="w-100">

@@ -9,6 +9,7 @@ use app\models\activerecord\Update;
 use app\models\activerecord\FindAll;
 use app\interfaces\ControllerInterface;
 use app\models\activerecord\Delete;
+use app\models\activerecord\Insert;
 use app\models\Product as ProductModel;
 
 class Product implements ControllerInterface
@@ -23,11 +24,13 @@ class Product implements ControllerInterface
             new FindAll()
         );
         
-        $this->view = $this->view ?: 'admin/product/index.php';
         $this->data = [
             'title'     => 'Lista de produtos',
-            'products'  => $products
+            'products'  => $products,
+            'add'       => '/admin/product/addProduct'
         ];
+        $this->view = $this->view ?: 'admin/product/index.php';
+
     }
 
     public function edit(array $args)
@@ -95,9 +98,37 @@ class Product implements ControllerInterface
         
     }
 
+    public function addProduct()
+    {
+        $this->view = '/admin/product/addProduct.php';
+        $this->data = [
+            'title' => 'Adicionar Produto',
+        ];
+    }
+
     public function store()
     {
+        $validate = new Validate();
+        $validate->handle([
+            'descricao' => [REQUIRED],
+            'categoria' => [REQUIRED]
+        ]);
 
+        if($validate->errors){
+            return redirect("/admin/product/addProduct");
+        }
+
+        $product = (new ProductModel);
+        $product->descricao = $validate->data['descricao'];
+        $product->categoria = $validate->data['categoria'];
+        
+        $created = $product->execute(
+            new Insert
+        );
+
+        Flash::set('created', "O produto {$validate->data['descricao']} foi inserido com sucesso!", 'success');
+
+        return redirect('/admin/product/');
     }
 
     public function delete(array $args)
