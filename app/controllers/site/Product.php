@@ -2,7 +2,10 @@
 
 namespace app\controllers\site;
 
-class Product
+use app\models\activerecord\FindAll;
+use app\models\Products as ProductsModel;
+
+class Product 
 {
     public array $data = [];
     public string $view;
@@ -10,8 +13,13 @@ class Product
     
     public function index(array $args)
     {
+        $products = (new ProductsModel)->execute(
+            new FindAll()
+        );
+
         $this->data = [
-            'title' => 'Product'
+            'title' => 'Produtos',
+            'products'  => $products
         ];
         $this->view = 'product/index.php';
     }
