@@ -2,11 +2,9 @@
 
 namespace app\controllers\site;
 
-
 use app\models\User;
 use app\classes\Flash;
 use app\classes\BlockNotLogged;
-use app\classes\BlockNotReason;
 use app\models\activerecord\FindBy;
 use app\interfaces\ControllerInterface;
 
@@ -35,7 +33,7 @@ class Login implements ControllerInterface
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $user = new User;
-        $userFound = $user->execute(new FindBy(field:'email', value: $email, fields:'firstName, lastName, password'));
+        $userFound = $user->execute(new FindBy(field:'email', value: $email, fields:'id, firstName, lastName, password'));
 
         if(!$userFound){
             Flash::set('login', 'Usuário ou senha inválidos');

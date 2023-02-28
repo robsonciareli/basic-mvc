@@ -16,3 +16,8 @@ function is_logged()
 {
     return $_SESSION['user'] ?? null;
 }
+
+function idLoggedUser()
+{
+    return $_SESSION['user']->id;
+}

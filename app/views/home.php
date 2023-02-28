@@ -1,4 +1,6 @@
-<h2 class="mb-3">User's list</h2>
+<h2 class="mb-3">
+    <?php echo $title; ?>
+</h2>
 <ul class="list-group">
     <?php foreach ($users as $user): ?>
         <li class="list-group-item d-flex justify-content-between">
