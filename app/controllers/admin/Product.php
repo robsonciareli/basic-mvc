@@ -8,6 +8,7 @@ use app\models\activerecord\FindBy;
 use app\models\activerecord\Update;
 use app\models\activerecord\FindAll;
 use app\interfaces\ControllerInterface;
+use app\models\activerecord\Delete;
 use app\models\Product as ProductModel;
 
 class Product implements ControllerInterface
@@ -87,6 +88,9 @@ class Product implements ControllerInterface
         if($created){
             Flash::set('created', "O produto {$product->descricao} foi alterado com sucesso!", "success");
             return redirect("/admin/product");
+        } else {
+            Flash::set('erro', "Não ocorreu alteração!", "danger");
+            return redirect("/admin/product/edit/{$validate->data['id']}");
         }
         
     }
@@ -94,6 +98,20 @@ class Product implements ControllerInterface
     public function store()
     {
 
+    }
+
+    public function delete(array $args)
+    {
+        (new ProductModel)->execute(
+            new Delete(
+                field:'id',
+                value: $args[0]
+            )
+        );
+
+        Flash::set('excluido','Item excluído com sucesso', 'success');
+
+        return redirect('/admin/product');
     }
 
     public function destroy(array $args)

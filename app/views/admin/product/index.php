@@ -1,3 +1,5 @@
+<?php echo flash('excluido');?>
+
 <div class="border border-secondary rounded">
     <div class="bg-secondary">
         <div class="d-flex bg-secondary text-white font-weight-bold">
@@ -16,9 +18,12 @@
                         <?php echo $product->categoria; ?>
                     </div>
                     <div class="d-flex col-2 border-left py-2 justify-content-center">
-                        <a class="btn btn-sm btn-primary" href="/admin/product/show/<?php echo $product->id;?>">Show</a>
+                        <a class="btn btn-sm btn-primary" href="/admin/product/show/<?php echo $product->id;?>" title="Visualizar"> V </a>
                         <form method="GET" action="/admin/product/edit/<?php echo $product->id;?>">
-                            <button type="submit" class="btn btn-primary btn-sm ml-2">Editar</button>
+                            <button type="submit" class="btn btn-primary btn-sm ml-2" title="Editar"> E </button>
+                        </form>
+                        <form method="GET" action="/admin/product/delete/<?php echo $product->id;?>">
+                            <button type="submit" class="btn btn-danger btn-sm ml-2" title="Excluir"> X </button>
                         </form>
 
                     </div>
