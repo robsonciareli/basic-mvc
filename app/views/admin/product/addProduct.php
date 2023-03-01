@@ -5,12 +5,12 @@
 <div style="padding: 0 1em;">
     <form method="post" action="/admin/product/store">
         <div class="row mb-2">
-            <input type="text" name="descricao" placeholder="Descrição do produto" class="form-control" value="<?php echo old('descricao'); ?>">
+            <input type="text" name="descricao" placeholder="Descrição do produto" class="form-control">
             <?php echo flash('descricao');?>
         </div>
 
         <div class="row mb-2">
-            <input type="text" name="categoria" placeholder="Categoria do produto" class="form-control" value="<?php echo old('categoria'); ?>">
+            <input type="text" name="categoria" placeholder="Categoria do produto" class="form-control">
             <?php echo flash('categoria');?>
         </div>
 
