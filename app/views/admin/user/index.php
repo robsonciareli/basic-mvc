@@ -10,18 +10,24 @@
                 <?php echo $user->firstName . ' ' . $user->lastName; ?>
             </div>    
             <div class="d-flex justify-content-between col-3">
-                <a class="btn btn-primary btn-sm" href="/admin/user/show/<?php echo $user->id; ?>">Show</a>
+                <a class="btn btn-primary btn-sm" href="/admin/user/show/<?php echo $user->id; ?>">
+                    <i class="bi bi-eye"></i>
+                </a>
 
                 <?php if (idLoggedUser() === $user->id) { ?>
                     <form method="GET" action="/admin/user/edit/<?php echo $user->id;?>">
                         <input type="hidden" id="id" name="id" value="<?php echo $user->id;?>">
-                        <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
                     </form>
                 <?php } ?>
 
                 <form method="POST" action="/admin/user/delete/<?php echo $user->id;?>">
                     <input type="hidden" id="id" name="id" value="<?php echo $user->id;?>">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i>
+                    </button>
                 </form>
                 
             </div>

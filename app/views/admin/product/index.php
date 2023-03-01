@@ -21,12 +21,18 @@
                         <?php echo $product->categoria; ?>
                     </div>
                     <div class="d-flex col-2 border-left py-2 justify-content-center">
-                        <a class="btn btn-sm btn-primary" href="/admin/product/show/<?php echo $product->id;?>" title="Visualizar"> V </a>
+                        <a class="btn btn-sm btn-primary" href="/admin/product/show/<?php echo $product->id;?>" title="Visualizar" alt="Visualizar">
+                            <i class="bi bi-eye"></i>
+                        </a>
                         <form method="GET" action="/admin/product/edit/<?php echo $product->id;?>">
-                            <button type="submit" class="btn btn-primary btn-sm ml-2" title="Editar"> E </button>
+                            <button type="submit" class="btn btn-primary btn-sm ml-2" title="Editar" alt="Editar">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
                         </form>
                         <form method="GET" action="/admin/product/delete/<?php echo $product->id;?>">
-                            <button type="submit" class="btn btn-danger btn-sm ml-2" title="Excluir"> X </button>
+                            <button type="submit" class="btn btn-danger btn-sm ml-2" title="Excluir" alt="Excluir"> 
+                                <i class="bi bi-trash"></i>    
+                            </button>
                         </form>
 
                     </div>
