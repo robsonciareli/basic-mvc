@@ -17,6 +17,7 @@
                     <a  class="text-decoration-none text-dark" href="/admin/home">Início</a>
                     <a  class="text-decoration-none text-dark ml-4" href="/admin/user">Usuário</a>
                     <a  class="text-decoration-none text-dark ml-4" href="/admin/product">Produtos</a>
+                    <a  class="text-decoration-none text-dark ml-4" href="/admin/serie">Séries</a>
                 </ul>
             </div>
             <div class="d-flex justify-content-end col-7">

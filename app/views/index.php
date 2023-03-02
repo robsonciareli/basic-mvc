@@ -16,6 +16,7 @@
             <div class="d-flex col-5">
                 <a href="/" class="text-decoration-none text-dark">Início</a>
                 <a href="/product" class="text-decoration-none text-dark ml-4">Produtos</a>
+                <a href="/serie" class="text-decoration-none text-dark ml-4">Série</a>
                 <?php 
                     if(is_null(is_logged())){ ?>
                         <a href="/signup"  class="text-decoration-none text-dark align-baseline ml-4">Signup</a>
