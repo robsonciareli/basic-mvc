@@ -9,6 +9,7 @@ use app\models\activerecord\Delete;
 use app\models\activerecord\FindAll;
 use app\models\activerecord\FindBy;
 use app\models\activerecord\Insert;
+use app\models\activerecord\Update;
 use app\models\Serie as SerieModel;
 
 class Serie implements ControllerInterface
@@ -32,11 +33,6 @@ class Serie implements ControllerInterface
         
     }
 
-    public function edit(array $args)
-    {
-
-    }
-
     public function show(array $args)
     {
         $serie = (new SerieModel)->execute(
@@ -54,9 +50,50 @@ class Serie implements ControllerInterface
         ];
     }
 
+    public function edit(array $args)
+    {
+        $serie = (new SerieModel)->execute(
+            new FindBy(
+                field:'id',
+                value: $args[0],
+                fields: 'id, name, resume'
+            )
+        );
+
+        $this->view = 'admin/serie/edit.php';
+        $this->data = [
+            'title' => 'Editar Série',
+            'serie' => $serie
+        ];
+    }
+
+    
     public function update(array $args)
     {
+        $validate = new Validate;
+        $validate->handle([
+            'id'        => [REQUIRED],
+            'name'      => [REQUIRED],
+            'resume'    => [REQUIRED]
+            ]
+        );
 
+        if($validate->errors){
+            return redirect('admin/serie/edit.php');
+        }
+
+        $serie = new SerieModel;
+        $serie->name    = $validate->data['name'];
+        $serie->resume  = $validate->data['resume'];
+
+        $serie->execute(
+            new Update(
+                field: 'id',
+                value: $validate->data['id']
+            )
+        );
+
+        return redirect('admin/serie');
     }
 
 
