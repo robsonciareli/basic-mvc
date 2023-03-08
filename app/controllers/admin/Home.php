@@ -12,6 +12,7 @@ class Home implements ControllerInterface
     public string $view;
     public array $data = [];
     public string $master;
+    public string $baseView = '/admin';
 
     public function index(array $args)
     {
@@ -21,6 +22,7 @@ class Home implements ControllerInterface
         $this->data = [
             'title' => 'Admin',
             'users' => $users,
+            'baseView'  => $this->baseView,
         ];
         $this->master = 'admin/index.php';
         $this->view = 'admin/home.php';
