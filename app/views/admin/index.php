@@ -26,8 +26,14 @@
         </nav>
         
         <h3 class="d-flex justify-content-between">
-            <?php echo $title;?>
-            <?php if (!empty($add)) { ?>
+        <?php
+            echo $title;
+
+            if(!($baseView === $_SERVER['REQUEST_URI'])) { 
+                echo "<a href='{$baseView}' class='btn btn-primary btn-sm'>Voltar</a>";
+            }
+
+            if (!empty($add)) { ?>
                 <a href="<?php echo $add;?>" class="btn btn-primary btn-sm">Adicionar</a>
             <?php }?>
         </h3>

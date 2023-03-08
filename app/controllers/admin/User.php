@@ -18,6 +18,7 @@ class User implements ControllerInterface
     public array $data = [];
     public string $view = '';
     public string $master = 'admin/index.php';
+    public string $baseView = '/admin/user';
 
     public function __construct()
     {
@@ -33,6 +34,7 @@ class User implements ControllerInterface
         $this->data = [
             'title' => 'Lista de usuários',
             'users' => $users,
+            'baseView'  => $this->baseView,
         ];
         $this->view = $this->view ?: 'admin/user/index.php';
     }
@@ -54,7 +56,8 @@ class User implements ControllerInterface
         $this->view = 'admin/user/user.php';
         $this->data = [
             'title' => 'User data',
-            'user' => $user
+            'user' => $user,
+            'baseView'  => $this->baseView,
         ];
     }
 
@@ -86,7 +89,8 @@ class User implements ControllerInterface
         $this->view = 'admin/user/edit.php';
         $this->data = [
             'title' => 'Editar usuário',
-            'user'  => $user
+            'user'  => $user,
+            'baseView'  => $this->baseView,
         ];
     }
 

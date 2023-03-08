@@ -17,6 +17,7 @@ class Product implements ControllerInterface
     public string $view = '';
     public array $data = [];
     public string $master = 'admin/index.php';
+    public string $baseView = '/admin/product';
 
     public function index(array $args)
     {
@@ -27,7 +28,8 @@ class Product implements ControllerInterface
         $this->data = [
             'title'     => 'Lista de produtos',
             'products'  => $products,
-            'add'       => '/admin/product/addProduct'
+            'add'       => '/admin/product/addProduct',
+            'baseView'  => $this->baseView,
         ];
         $this->view = $this->view ?: 'admin/product/index.php';
 
@@ -46,6 +48,7 @@ class Product implements ControllerInterface
         $this->data = [
             'title'     => 'Editar produto',
             'product'   => $product,
+            'baseView'  => $this->baseView,
         ];
         $this->view = 'admin/product/edit.php';
     }
@@ -63,7 +66,8 @@ class Product implements ControllerInterface
         $this->view = 'admin/product/product.php';
         $this->data = [
             'title' => 'Visualizar produto',
-            'product'   => $product
+            'product'   => $product,
+            'baseView'  => $this->baseView,
         ];
     }
 
@@ -103,6 +107,7 @@ class Product implements ControllerInterface
         $this->view = '/admin/product/addProduct.php';
         $this->data = [
             'title' => 'Adicionar Produto',
+            'baseView'  => $this->baseView,
         ];
     }
 

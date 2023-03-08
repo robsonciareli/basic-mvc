@@ -17,6 +17,7 @@ class Serie implements ControllerInterface
     public array $data = [];
     public string $view = '';
     public string $master = 'admin/index.php';
+    public string $baseView = '/admin/serie';
 
     public function index(array $args)
     {
@@ -29,6 +30,7 @@ class Serie implements ControllerInterface
             'title'     => 'Lista de série',
             'series'    => $series,
             'add'       => '/admin/serie/addSerie',
+            'baseView'=> $this->baseView,
         ];
         
     }
@@ -45,8 +47,9 @@ class Serie implements ControllerInterface
 
         $this->view = 'admin/serie/serie.php';
         $this->data = [
-            'title' => 'Série',
+            'title' => 'Visualizar série',
             'serie' => $serie,
+            'baseView'=> $this->baseView,
         ];
     }
 
@@ -62,8 +65,9 @@ class Serie implements ControllerInterface
 
         $this->view = 'admin/serie/edit.php';
         $this->data = [
-            'title' => 'Editar Série',
-            'serie' => $serie
+            'title' => 'Editar série',
+            'serie' => $serie,
+            'baseView'=> $this->baseView,
         ];
     }
 
@@ -101,7 +105,8 @@ class Serie implements ControllerInterface
     {
         $this->view = 'admin/serie/addSerie.php';
         $this->data = [
-            'title' => 'Adicionar Série',
+            'title' => 'Adicionar série',
+            'baseView'=> $this->baseView,
         ];
     }
 
