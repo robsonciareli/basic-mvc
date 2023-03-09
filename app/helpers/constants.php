@@ -6,6 +6,7 @@ define('VIEW_PATH', '../app/views/');
 define('REQUIRED', 'ValidateRequired');
 define('EMAIL', 'ValidateEmail');
 define('MAXLEN', 'ValidateMaxLen');
+define('ONLYNUMBER', 'ValidateOnlyNumber');
 
 // config
 define('ROOT', dirname(__FILE__, 3));

@@ -13,6 +13,12 @@
             <textarea type="text" name="resume" placeholder="Digite o resumo" class="form-control"><?php echo $serie->resume; ?></textarea>
             <?php echo flash('resume');?>
         </div>
+
+        <div class="row mb-2 justify-content-end">
+            <a href="/admin/season/add/<?php echo $serie->id;?>" class="btn btn-primary btn-sm">
+                Adicionar temporada
+            </a>
+        </div>
         
         <div class="row">
             <button type="submit" class="btn btn-primary">Salvar</button>
