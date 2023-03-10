@@ -9,7 +9,7 @@ use app\interfaces\ActiveRecordExecuteInterface;
 
 class FindAll implements ActiveRecordExecuteInterface
 {
-    public function __construct(private string $fields = '*')
+    public function __construct(private string $fields = '*', private string|null $byField = null, private string|int|null $value = null)
     {
     }
     
@@ -31,7 +31,15 @@ class FindAll implements ActiveRecordExecuteInterface
 
     private function createQuery(ActiveRecordInterface $activeRecordInterface)
     {
-        return $sql = "SELECT {$this->fields} FROM {$activeRecordInterface->getTable()}";
+        return $sql = "SELECT {$this->fields} FROM {$activeRecordInterface->getTable()} {$this->getWhere()}";
+    }
+
+    private function getWhere(){
+        $string = '';
+        if(!is_null($this->byField)){
+            $string = " AND {$this->byField} = {$this->value}";
+        }
+        return " WHERE 1=1 {$string}";
     }
     
 }
