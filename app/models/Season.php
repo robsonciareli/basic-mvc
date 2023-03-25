@@ -10,14 +10,15 @@ class Season extends ActiveRecord
     public $table = 'seasons';
 
 
-    public function getSeasonsBySerie($serie)
+    public function getSeasonsBySerie(Serie $serie): array
     {
         $seasons = [];
         $seasons = $this->execute(
             new FindAll(
             byField: 'serie_id',
-            value: $serie,
-            fields: 'id, number, title'
+            value: $serie->id,
+            fields: 'id, number, title',
+            pdoFetchClass: __CLASS__
         ));
 
         return $seasons;

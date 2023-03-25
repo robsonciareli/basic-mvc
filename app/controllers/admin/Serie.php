@@ -10,7 +10,6 @@ use app\models\activerecord\FindAll;
 use app\models\activerecord\FindBy;
 use app\models\activerecord\Insert;
 use app\models\activerecord\Update;
-use app\models\Season;
 use app\models\Serie as SerieModel;
 
 class Serie implements ControllerInterface
@@ -19,6 +18,12 @@ class Serie implements ControllerInterface
     public string $view = '';
     public string $master = 'admin/index.php';
     public string $baseView = '/admin/serie';
+    private ?SerieModel $serieModel = null;
+
+    public function __construct()
+    {
+        $this->serieModel = new SerieModel();
+    }
 
     public function index(array $args)
     {
@@ -42,15 +47,15 @@ class Serie implements ControllerInterface
             new FindBy(
                 field:'id',
                 value: $args[0],
-                fields:'name, resume'
+                fields:'id, name, resume',
+                pdoFetchClass: get_class($this->serieModel)
             )
         );
-
         $this->view = 'admin/serie/serie.php';
         $this->data = [
-            'title' => 'Visualizar série',
-            'serie' => $serie,
-            'baseView'=> $this->baseView,
+            'title'     => 'Visualizar série',
+            'serie'     => $serie,
+            'baseView'  => $this->baseView,
         ];
     }
 
@@ -60,18 +65,18 @@ class Serie implements ControllerInterface
             new FindBy(
                 field:'id',
                 value: $args[0],
-                fields: 'id, name, resume'
+                fields: 'id, name, resume',
+                pdoFetchClass: get_class($this->serieModel)
             )
         );
 
-        // pegar as temporadas
-        $seasons = $this->getSeasons($serie->id);
+        // $seasons = $this->getSeasons($serie->id);
 
         $this->view = 'admin/serie/edit.php';
         $this->data = [
             'title' => 'Editar série',
             'serie' => $serie,
-            'seasons' => $seasons,
+            // 'seasons' => $seasons,
             'baseView'=> $this->baseView,
         ];
     }
@@ -156,8 +161,4 @@ class Serie implements ControllerInterface
         return redirect('/admin/serie');
     }
 
-    private function getSeasons($serie)
-    {
-        return (new Season)->getSeasonsBySerie($serie);
-    }
 }

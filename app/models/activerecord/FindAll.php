@@ -2,6 +2,7 @@
 
 namespace app\models\activerecord;
 
+use PDO;
 use Throwable;
 use app\models\connection\Connection;
 use app\interfaces\ActiveRecordInterface;
@@ -9,7 +10,7 @@ use app\interfaces\ActiveRecordExecuteInterface;
 
 class FindAll implements ActiveRecordExecuteInterface
 {
-    public function __construct(private string $fields = '*', private string|null $byField = null, private string|int|null $value = null)
+    public function __construct(private string $fields = '*', private string|null $byField = null, private string|int|null $value = null, private string $pdoFetchClass = 'stdClass')
     {
     }
     
@@ -23,7 +24,7 @@ class FindAll implements ActiveRecordExecuteInterface
             $prepare = $connection->prepare($query);
             $prepare->execute();
             
-            return $prepare->fetchAll();
+            return $prepare->fetchAll(PDO::FETCH_CLASS, $this->pdoFetchClass);
         } catch(Throwable $throw){
             var_dump($throw);
         }

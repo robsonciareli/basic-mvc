@@ -5,10 +5,11 @@ namespace app\models\activerecord;
 use app\models\connection\Connection;
 use app\interfaces\ActiveRecordInterface;
 use app\interfaces\ActiveRecordExecuteInterface;
+use PDO;
 
 class FindBy implements ActiveRecordExecuteInterface
 {
-    public function __construct(private string $field, private string|int $value, private string $fields = '*')
+    public function __construct(private string $field, private string|int $value, private string $fields = '*', private string $pdoFetchClass = 'stdClass')
     {
     }
     
@@ -23,8 +24,15 @@ class FindBy implements ActiveRecordExecuteInterface
             $this->field => $this->value
         ]);
 
-        return $prepare->fetch();
+        $result = $prepare->fetchAll(PDO::FETCH_CLASS, $this->pdoFetchClass);
 
+        if(count($result) === 1){
+            $result = array_reduce($result, function($e, $item){
+                return $item;
+            }, []);
+        }
+
+        return $result;
     }
 
     private function createQuery(ActiveRecordInterface $activeRecordInterface)
