@@ -36,11 +36,11 @@ class FindAll implements ActiveRecordExecuteInterface
     }
 
     private function getWhere(){
-        $string = '';
-        if(!is_null($this->byField)){
-            $string = " AND {$this->byField} = {$this->value}";
+        if ( is_null($this->byField)){
+            return;
         }
-        return " WHERE 1=1 {$string}";
+
+        return " WHERE {$this->byField} = {$this->value}";
     }
     
 }
