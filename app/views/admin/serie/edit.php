@@ -42,6 +42,11 @@
                     <a class="btn btn-sm btn-primary" href="/admin/season/show/<?php echo $season->id; ?>" title="Visualizar" alt="Visualizar">
                         <i class="bi bi-eye"></i>
                     </a>
+                    <form method="GET" action="/admin/season/edit/<?php echo $season->id; ?>">
+                        <button type="submit" class="btn btn-primary btn-sm ml-2" title="Editar" alt="Editar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                    </form>
                     <form method="GET" action="/admin/season/destroy/<?php echo $season->id; ?>">
                         <button type="submit" class="btn btn-danger btn-sm ml-2" title="Excluir" alt="Excluir"> 
                             <i class="bi bi-trash"></i>    

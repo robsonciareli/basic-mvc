@@ -38,7 +38,22 @@ class Season implements ControllerInterface
      */
     public function edit(array $args)
     {
+        $season = $this->seasonModel->execute(
+            new FindById(
+                field: 'id',
+                value: $args[0],
+                fields: 'id, number, title, serie_id',
+                pdoFetchClass: get_class($this->seasonModel)
+            )
+        );
 
+        $this->view = 'admin/season/edit.php';
+        $this->baseView = "/admin/serie/edit/{$season->serie_id}";
+        $this->data = [
+            'title' => 'Editar temporada',
+            'season'    => $season,
+            'baseView'  => $this->baseView
+        ];
     }
 
     public function show(array $args)
