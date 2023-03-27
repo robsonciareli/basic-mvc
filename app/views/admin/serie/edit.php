@@ -14,7 +14,7 @@
             <?php echo flash('resume');?>
         </div>
 
-        <div class="row">
+        <div class="row justify-content-end">
             <a href="/admin/season/add/<?php echo $serie->id;?>" class="btn btn-primary btn-sm p-2">
                 Adicionar temporada
             </a>
@@ -26,7 +26,8 @@
         <div class="bg-secondary">
             <div class="d-flex bg-secondary text-white font-weight-bold">
                 <div class="col-1 py-2 ">Número</div>
-                <div class="col-11 py-2 border-left text-center">Título</div>
+                <div class="col-9 py-2 border-left text-center">Título</div>
+                <div class="col-2 py-2 border-left text-center">Título</div>
             </div>
         </div>
         <?php foreach($serie->getSeasons() as $season){?>
@@ -34,10 +35,19 @@
                 <div class="col-1 py-2 text-center">
                     <?php echo $season->number;?>
                 </div>
-                <div class="col-11 py-2">
+                <div class="col-9 py-2">
                     <?php echo $season->title;?>
                 </div>
-                
+                <div class="d-flex col-2 border-left py-2 justify-content-center">
+                    <a class="btn btn-sm btn-primary" href="/admin/season/show/<?php echo $season->id; ?>" title="Visualizar" alt="Visualizar">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <form method="GET" action="/admin/season/destroy/<?php echo $season->id; ?>">
+                        <button type="submit" class="btn btn-danger btn-sm ml-2" title="Excluir" alt="Excluir"> 
+                            <i class="bi bi-trash"></i>    
+                        </button>
+                    </form>
+                </div>
             </div>
         <?php }?>
     </div>

@@ -7,7 +7,6 @@ use app\classes\Validate;
 use app\interfaces\ControllerInterface;
 use app\models\activerecord\Delete;
 use app\models\activerecord\FindAll;
-use app\models\activerecord\FindBy;
 use app\models\activerecord\FindById;
 use app\models\activerecord\Insert;
 use app\models\activerecord\Update;
@@ -71,13 +70,10 @@ class Serie implements ControllerInterface
             )
         );
 
-        // $seasons = $this->getSeasons($serie->id);
-
         $this->view = 'admin/serie/edit.php';
         $this->data = [
             'title' => 'Editar série',
             'serie' => $serie,
-            // 'seasons' => $seasons,
             'baseView'=> $this->baseView,
         ];
     }

@@ -5,6 +5,9 @@ namespace app\controllers\admin;
 use app\classes\Flash;
 use app\classes\Validate;
 use app\interfaces\ControllerInterface;
+use app\models\activerecord\Delete;
+use app\models\activerecord\Find;
+use app\models\activerecord\FindById;
 use app\models\activerecord\Insert;
 use app\models\Season as SeasonModel;
 
@@ -14,6 +17,12 @@ class Season implements ControllerInterface
     public string $view;
     public string $master = 'admin/index.php';
     public string $baseView = 'admin/season';
+    private ?SeasonModel $seasonModel = null;
+
+    public function __construct()
+    {
+        $this->seasonModel = new SeasonModel;
+    }
 
     public function index(array $args)
     {
@@ -34,7 +43,22 @@ class Season implements ControllerInterface
 
     public function show(array $args)
     {
+        $season = $this->seasonModel->execute(
+            new FindById(
+                field: 'id',
+                value: $args[0],
+                fields: 'id, number, title, serie_id',
+                pdoFetchClass: get_class($this->seasonModel)
+            )
+        );
 
+        $this->view = 'admin/season/show.php';
+        $this->baseView = "/admin/serie/edit/{$season->serie_id}";
+        $this->data = [
+            'title' => 'Visualizar Temporada',
+            'baseView'  => $this->baseView,
+            'season' => $season
+        ];
     }
 
     public function update(array $args)
@@ -83,6 +107,24 @@ class Season implements ControllerInterface
 
     public function destroy(array $args)
     {
+        $season = $this->seasonModel->execute(
+            new FindById(
+                field: 'id',
+                value: $args[0],
+                fields: 'id, title, serie_id',
+                pdoFetchClass: get_class($this->seasonModel)
+            )
+        );
+        
+        $this->seasonModel->execute(
+            new Delete(
+                field: 'id',
+                value: $args[0]
+            )
+        );
 
+        Flash::set('success', "A temporada \"{$season->title}\" foi excluída com sucesso!");
+
+        return redirect("/admin/serie/edit/{$season->serie_id}");
     }
 }
