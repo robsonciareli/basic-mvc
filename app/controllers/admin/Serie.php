@@ -8,6 +8,7 @@ use app\interfaces\ControllerInterface;
 use app\models\activerecord\Delete;
 use app\models\activerecord\FindAll;
 use app\models\activerecord\FindBy;
+use app\models\activerecord\FindById;
 use app\models\activerecord\Insert;
 use app\models\activerecord\Update;
 use app\models\Serie as SerieModel;
@@ -44,7 +45,7 @@ class Serie implements ControllerInterface
     public function show(array $args)
     {
         $serie = (new SerieModel)->execute(
-            new FindBy(
+            new FindById(
                 field:'id',
                 value: $args[0],
                 fields:'id, name, resume',
@@ -62,7 +63,7 @@ class Serie implements ControllerInterface
     public function edit(array $args)
     {
         $serie = (new SerieModel)->execute(
-            new FindBy(
+            new FindById(
                 field:'id',
                 value: $args[0],
                 fields: 'id, name, resume',
