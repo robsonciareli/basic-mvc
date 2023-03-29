@@ -40,7 +40,7 @@ class Login implements ControllerInterface
             return redirect('/login');
         }
 
-        $passwordMatch = password_verify($password, $userFound->password);
+        $passwordMatch = password_verify($password, $userFound[0]->password);
 
         if(!$passwordMatch){
             Flash::set('login', 'Usuário ou senha inválidos');
@@ -49,7 +49,7 @@ class Login implements ControllerInterface
 
         unset($userFound->password);
 
-        $_SESSION['user'] = $userFound;
+        $_SESSION['user'] = $userFound[0];
 
         return redirect('/admin/');
     }
