@@ -9,6 +9,7 @@ use app\models\activerecord\Delete;
 use app\models\activerecord\Find;
 use app\models\activerecord\FindById;
 use app\models\activerecord\Insert;
+use app\models\activerecord\Update;
 use app\models\Season as SeasonModel;
 
 class Season implements ControllerInterface
@@ -78,7 +79,33 @@ class Season implements ControllerInterface
 
     public function update(array $args)
     {
+        $validate = new Validate;
+        $validate->handle([
+            'id' => [REQUIRED, ONLYNUMBER],
+            'number'    => [REQUIRED, ONLYNUMBER],
+            'title'     => [REQUIRED],
+            'serie_id'  => [REQUIRED]
+        ]);
 
+        if($validate->errors){
+            return redirect("/admin/season/edit/{$validate->data['id']}");
+        }
+
+        $season = new SeasonModel;
+        $season->number = $validate->data['number'];
+        $season->title = $validate->data['title'];
+        $season->serie_id = $validate->data['serie_id'];
+        
+        $season->execute(
+            new Update(
+                field: 'id',
+                value: $validate->data['id']
+            )
+        );
+        
+        Flash::set('created', "A temporada \"{$validate->data['title']}\" foi atualizada!", 'success');
+
+        return redirect("/admin/serie/edit/{$season->serie_id}");
     }
 
     public function add(array $args)
@@ -114,7 +141,7 @@ class Season implements ControllerInterface
         );
 
         if($created){
-            Flash::set('created', "A temporada {$validate->data['title']} foi inserida!");
+            Flash::set('created', "A temporada \"{$validate->data['title']}\" foi inserida!", 'success');
         }
 
         return redirect("/admin/serie/edit/{$validate->data['serie_id']}");
@@ -138,7 +165,7 @@ class Season implements ControllerInterface
             )
         );
 
-        Flash::set('success', "A temporada \"{$season->title}\" foi excluída com sucesso!");
+        Flash::set('created', "A temporada \"{$season->title}\" foi excluída com sucesso!", 'success');
 
         return redirect("/admin/serie/edit/{$season->serie_id}");
     }

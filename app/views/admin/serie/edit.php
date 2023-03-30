@@ -1,5 +1,6 @@
 <?php
     echo flash('erro');
+    echo flash('created');
 ?>
 <div style="padding: 0 1em;">
     <form method="POST" action="/admin/serie/update">
