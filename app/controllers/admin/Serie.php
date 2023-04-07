@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\classes\Flash;
+use app\classes\UploadImage;
 use app\classes\Validate;
 use app\interfaces\ControllerInterface;
 use app\models\activerecord\Delete;
@@ -11,6 +12,8 @@ use app\models\activerecord\FindById;
 use app\models\activerecord\Insert;
 use app\models\activerecord\Update;
 use app\models\Serie as SerieModel;
+
+use function PHPSTORM_META\type;
 
 class Serie implements ControllerInterface
 {
@@ -65,7 +68,7 @@ class Serie implements ControllerInterface
             new FindById(
                 field:'id',
                 value: $args[0],
-                fields: 'id, name, resume',
+                fields: 'id, name, resume, cover_image',
                 pdoFetchClass: get_class($this->serieModel)
             )
         );
@@ -89,6 +92,10 @@ class Serie implements ControllerInterface
             ]
         );
 
+        if($_FILES['cover_image']){
+            $upload = new UploadImage($_FILES['cover_image'], 'series');
+        }
+        
         if($validate->errors){
             return redirect('admin/serie/edit.php');
         }
@@ -96,6 +103,7 @@ class Serie implements ControllerInterface
         $serie = new SerieModel;
         $serie->name    = $validate->data['name'];
         $serie->resume  = $validate->data['resume'];
+        $serie->cover_image  = $upload->getFileName();
 
         $serie->execute(
             new Update(

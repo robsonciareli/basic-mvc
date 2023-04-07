@@ -3,8 +3,13 @@
     echo flash('created');
 ?>
 <div style="padding: 0 1em;">
-    <form method="POST" action="/admin/serie/update">
+    <form method="POST" action="/admin/serie/update" enctype="multipart/form-data">
         <input type="hidden" name="id" id="id" value="<?php echo $serie->id; ?>">
+        <div class="row mb-2">
+            <input type="file" name="cover_image" title="Capa da série" class="form-control" value="<?php echo $serie->cover_image; ?>">
+            <?php echo flash('cover_image');?>
+        </div>
+
         <div class="row mb-2">
             <input type="text" name="name" placeholder="Digite nome" class="form-control" value="<?php echo $serie->name; ?>">
             <?php echo flash('name');?>
