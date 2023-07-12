@@ -4,11 +4,11 @@ namespace app\controllers\admin;
 
 use app\classes\Flash;
 use app\classes\Validate;
-use app\models\activerecord\FindBy;
 use app\models\activerecord\Update;
 use app\models\activerecord\FindAll;
 use app\interfaces\ControllerInterface;
 use app\models\activerecord\Delete;
+use app\models\activerecord\FindById;
 use app\models\activerecord\Insert;
 use app\models\Product as ProductModel;
 
@@ -18,10 +18,15 @@ class Product implements ControllerInterface
     public array $data = [];
     public string $master = 'admin/index.php';
     public string $baseView = '/admin/product';
+    
+
+    public function __construct(private ?ProductModel $productModel = (new ProductModel))
+    {
+    }
 
     public function index(array $args)
     {
-        $products = (new ProductModel)->execute(
+        $products = $this->productModel->execute(
             new FindAll()
         );
         
@@ -37,11 +42,12 @@ class Product implements ControllerInterface
 
     public function edit(array $args)
     {
-        $product = (new ProductModel)->execute(
-            new FindBy(
+        $product = $this->productModel->execute(
+            new FindById(
                 field: 'id',
                 value: $args[0],
-                fields: 'id, descricao, categoria'
+                fields: 'id, descricao, categoria',
+                pdoFetchClass: get_class($this->productModel)
             )
         );
 
@@ -55,11 +61,12 @@ class Product implements ControllerInterface
 
     public function show(array $args)
     {
-        $product = (new ProductModel)->execute(
-            new FindBy(
+        $product = $this->productModel->execute(
+            new FindById(
                 field:'id',
                 value: $args[0],
-                fields:'descricao, categoria'
+                fields:'descricao, categoria',
+                pdoFetchClass: get_class($this->productModel)
             )
         );
 
@@ -84,7 +91,7 @@ class Product implements ControllerInterface
             return redirect("/admin/product/edit/{$validate->data['id']}");
         }
 
-        $product = (new ProductModel);
+        $product = $this->productModel;
         $product->descricao = $validate->data['descricao'];
         $product->categoria = $validate->data['categoria'];
 
@@ -123,7 +130,7 @@ class Product implements ControllerInterface
             return redirect("/admin/product/addProduct");
         }
 
-        $product = (new ProductModel);
+        $product = $this->productModel;
         $product->descricao = $validate->data['descricao'];
         $product->categoria = $validate->data['categoria'];
         
@@ -138,7 +145,7 @@ class Product implements ControllerInterface
 
     public function delete(array $args)
     {
-        (new ProductModel)->execute(
+        $this->productModel->execute(
             new Delete(
                 field:'id',
                 value: $args[0]
