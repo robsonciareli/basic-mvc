@@ -15,5 +15,5 @@ define('CONTROLLER_DEFAULT', 'Home');
 define('CONTROLLER_FOLDER_DEFAULT', 'site');
 
 // upload de arquivos
-define('IMAGES', $_SERVER['DOCUMENT_ROOT'] .'/app/files/images/');
-define('DOCS', $_SERVER['DOCUMENT_ROOT'] .'/app/files/mixed_up/');
+define('IMAGES', 'public/assets/files/images/');
+define('DOCS', 'public/assets/files/mixed_up/');

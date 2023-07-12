@@ -1,15 +1,12 @@
 <?php
     echo flash('erro');
     echo flash('created');
+    // echo $path_cover_image;
 ?>
 <div style="padding: 0 1em;">
     <form method="POST" action="/admin/serie/update" enctype="multipart/form-data">
         <input type="hidden" name="id" id="id" value="<?php echo $serie->id; ?>">
-        <div class="row mb-2">
-            <input type="file" name="cover_image" title="Capa da série" class="form-control" value="<?php echo $serie->cover_image; ?>">
-            <?php echo flash('cover_image');?>
-        </div>
-
+        
         <div class="row mb-2">
             <input type="text" name="name" placeholder="Digite nome" class="form-control" value="<?php echo $serie->name; ?>">
             <?php echo flash('name');?>
@@ -19,6 +16,17 @@
             <textarea type="text" name="resume" placeholder="Digite o resumo" class="form-control"><?php echo $serie->resume; ?></textarea>
             <?php echo flash('resume');?>
         </div>
+
+        <div class="row mb-2">
+            <input type="file" name="cover_image" title="Capa da série" class="form-control" value="<?php echo $serie->cover_image; ?>">
+            <?php echo flash('cover_image');?>
+        </div>
+
+        <?php if($path_cover_image){?>
+            <div class="row mb-2">
+                <img src="<?php echo $path_cover_image; ?> ">
+            </div>
+        <?php }?>
 
         <div class="row justify-content-end">
             <a href="/admin/season/add/<?php echo $serie->id;?>" class="btn btn-primary btn-sm p-2">

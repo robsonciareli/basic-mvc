@@ -30,7 +30,7 @@ class Serie implements ControllerInterface
 
     public function index(array $args)
     {
-        $series = (new SerieModel)->execute(
+        $series = $this->serieModel->execute(
             new FindAll()
         );
 
@@ -46,7 +46,7 @@ class Serie implements ControllerInterface
 
     public function show(array $args)
     {
-        $serie = (new SerieModel)->execute(
+        $serie = $this->serieModel->execute(
             new FindById(
                 field:'id',
                 value: $args[0],
@@ -64,7 +64,10 @@ class Serie implements ControllerInterface
 
     public function edit(array $args)
     {
-        $serie = (new SerieModel)->execute(
+        $root = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+        $root = str_replace($root, '', $_SERVER["HTTP_REFERER"]);
+        
+        $serie = $this->serieModel->execute(
             new FindById(
                 field:'id',
                 value: $args[0],
@@ -73,11 +76,13 @@ class Serie implements ControllerInterface
             )
         );
 
+        $image_path = $serie->cover_image ? IMAGES ."series/". $serie->cover_image : '';
         $this->view = 'admin/serie/edit.php';
         $this->data = [
             'title' => 'Editar série',
             'serie' => $serie,
             'baseView'=> $this->baseView,
+            'path_cover_image' => $image_path,
         ];
     }
 
@@ -100,7 +105,7 @@ class Serie implements ControllerInterface
             return redirect('admin/serie/edit.php');
         }
 
-        $serie = new SerieModel;
+        $serie = $this->serieModel;
         $serie->name    = $validate->data['name'];
         $serie->resume  = $validate->data['resume'];
         $serie->cover_image  = $upload->getFileName();
@@ -137,7 +142,7 @@ class Serie implements ControllerInterface
             return redirect('admin/serie/addSerie');
         }
 
-        $serie = new SerieModel;
+        $serie = $this->serieModel;
         $serie->name    = $validate->data['name'];
         $serie->resume  = $validate->data['resume'];
 
@@ -154,7 +159,7 @@ class Serie implements ControllerInterface
 
     public function destroy(array $args)
     {
-        (new SerieModel)->execute(
+        $this->serieModel->execute(
             new Delete(
                 field:'id',
                 value: $args['0']

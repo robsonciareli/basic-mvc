@@ -23,7 +23,7 @@ class ControllerExtract
         $controller = $controller ?? CONTROLLER_DEFAULT;
 
         $controller = $namespaceAndController.ucfirst($controller);
-        // var_dump($controller);die();
+        
         if(class_exists($controller)){
             return $controller;
         }
