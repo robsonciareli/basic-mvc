@@ -76,7 +76,7 @@ class Serie implements ControllerInterface
             )
         );
 
-        $image_path = $serie->cover_image ? IMAGES ."series/". $serie->cover_image : '';
+        $image_path = images($serie->cover_image, 'series/');
         $this->view = 'admin/serie/edit.php';
         $this->data = [
             'title' => 'Editar série',
