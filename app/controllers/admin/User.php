@@ -8,9 +8,9 @@ use app\classes\Validate;
 use app\classes\BlockNotLogged;
 use app\models\User as UserModel;
 use app\models\activerecord\Delete;
-use app\models\activerecord\FindBy;
 use app\models\activerecord\Update;
 use app\models\activerecord\FindAll;
+use app\models\activerecord\FindById;
 use app\interfaces\ControllerInterface;
 
 class User implements ControllerInterface
@@ -19,15 +19,17 @@ class User implements ControllerInterface
     public string $view = '';
     public string $master = 'admin/index.php';
     public string $baseView = '/admin/user';
+    private ?UserModel $userModel = null;
 
     public function __construct()
     {
         BlockNotLogged::block($this, ['index', 'show', 'delete', 'edit', 'update', 'store']);
+        $this->userModel = new UserModel();
     }
 
     public function index(array $args)
     {
-        $users = (new UserModel)->execute(
+        $users = $this->userModel->execute(
             new FindAll(fields:'id, firstName, lastName')
         );
         
@@ -41,11 +43,12 @@ class User implements ControllerInterface
 
     public function show(array $args)
     {
-        $user = (new UserModel)->execute(
-            new FindBy(
+        $user = $this->userModel->execute(
+            new FindById(
                 field:'id', 
                 value:$args[0], 
-                fields:'id, firstName, lastName, email'
+                fields:'id, firstName, lastName, email',
+                pdoFetchClass: get_class($this->userModel)
             )
         );
 
@@ -63,7 +66,7 @@ class User implements ControllerInterface
 
     public function delete(array $args)
     {
-        (new UserModel)->execute(
+        $this->userModel->execute(
             new Delete(
                 field:'id', 
                 value: $args[0]
@@ -75,10 +78,11 @@ class User implements ControllerInterface
 
     public function edit(array $args)
     {
-        $user = (new UserModel)->execute(
-            new FindBy(field:'id',
+        $user = $this->userModel->execute(
+            new FindById(field:'id',
                 value:$args[0],
-                fields:'id, firstName, lastName, email'
+                fields:'id, firstName, lastName, email',
+                pdoFetchClass: get_class($this->userModel)
             )
         );
         
@@ -108,7 +112,7 @@ class User implements ControllerInterface
             return redirect("/admin/user/edit/{$validate->data['id']}");
         }
 
-        $user = (new UserModel);
+        $user = $this->userModel;
 
         $user->firstName = $validate->data['firstName'];
         $user->lastName = $validate->data['lastName'];
